@@ -1,4 +1,5 @@
 <?php
+	include ("database.php");
 	$idnumber=$_POST['ide'];
 	
 	$file_name=$_FILES['photo']['name']; //trae el nombre del archivo
@@ -10,6 +11,14 @@
 	
 	move_uploaded_file($_FILES['photo']['tmp_name'],"photos/".$_FILES['photo']['name']);
 	//mueve la foto de la carpeta temporal a la carpeta photo
+	
+	$photo_url_db="photos/".$_FILES['photo']['name'];
+	//QUERY
+	$sql="INSERT INTO users (id_number,photo) VALUES('$idnumber','$photo_url_db')";
+	// EXECUTE QUERY
+	$conn->query($sql);
 	echo "<script languaje='javascript'>alert('::: El Usuario A Sido Registrado :::')</script>";
 	header("Refresh:0;url=index.html");
+	
+	//como estandarizar 
 ?>
